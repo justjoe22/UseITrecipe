@@ -16,5 +16,15 @@ public class Main extends AppCompatActivity {
         Firebase myDBRef = new Firebase("https://useitrecipe.firebaseio.com/");
 
         myDBRef.child("message").setValue("Do you have data? You'll love Firebase.");
+
+        myDBRef.child("message").addValueEventListener(new ValueEventListener() {
+
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+            }
+
+            public void onCancelled(FirebaseError error) { }
+
+        });
     }
 }
