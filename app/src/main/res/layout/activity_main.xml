@@ -9,18 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="comjustjoe22.httpsgithub.useitrecipe.Main">
 
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/firebaseView"
         android:layout_below="@+id/searchView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
