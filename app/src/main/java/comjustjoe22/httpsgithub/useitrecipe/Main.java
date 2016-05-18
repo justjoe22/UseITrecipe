@@ -14,28 +14,22 @@ import java.util.ArrayList;
 
 public class Main extends ListActivity  {
 
-    // TODO: change this to your own Firebase URL
-    private static final String FIREBASE_URL = "https://useitrecipe.firebaseio.com/";
-
-    //private String mUsername;
-    //private Firebase mFirebaseRef;
-    //private ValueEventListener mConnectedListener;
-    //private ListView userInfoList;
-    //private ArrayList fbItems;
+    // TODO: change this to your own FireBase URL
+    private static final String frBASE_URL = "https://useitrecipe.firebaseio.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
-        Firebase mFirebaseRef = new Firebase(FIREBASE_URL).child("message");
+        Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
 
-        mFirebaseRef.setValue("Do you have data? You'll love Firebase.");
+        mFrBaseRef.setValue("Do you have data? You'll love Firebase.");
 
         final ArrayList fbItems = new ArrayList();
 
-        mFirebaseRef.addValueEventListener(new ValueEventListener() {
+        mFrBaseRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot snapshot) {
