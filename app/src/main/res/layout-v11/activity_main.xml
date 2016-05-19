@@ -17,6 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:listitem="@android:layout/simple_list_item_1"
-        tools:listheader="@layout/abc_action_bar_title_item" />
+        tools:listheader="@layout/abc_action_bar_title_item"
+        android:visibility="visible" />
 
 </RelativeLayout>

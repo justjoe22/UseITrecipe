@@ -14,14 +14,12 @@ import java.util.ArrayList;
 
 public class Main extends ListActivity  {
 
-    // TODO: change this to your own FireBase URL
     private static final String frBASE_URL = "https://useitrecipe.firebaseio.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-        //setContentView(R.layout.activity_main);
 
         Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
 
@@ -41,8 +39,12 @@ public class Main extends ListActivity  {
             }
         });
 
+        fbItems.add("This is a TEST.");
+
         ArrayAdapter itemsAdapter =
                 new ArrayAdapter (this, android.R.layout.simple_list_item_1, fbItems);
+
+        //setContentView(R.layout.activity_main);
 
         ListView listView = (ListView) findViewById(R.id.firebaseView);
         listView.setAdapter(itemsAdapter);
