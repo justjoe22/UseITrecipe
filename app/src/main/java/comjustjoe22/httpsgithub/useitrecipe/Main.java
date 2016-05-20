@@ -2,7 +2,9 @@ package comjustjoe22.httpsgithub.useitrecipe;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.firebase.client.DataSnapshot;
@@ -19,36 +21,37 @@ public class Main extends ListActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Place Firebase code here
         Firebase.setAndroidContext(this);
 
         Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
 
-        mFrBaseRef.setValue("Do you have data? You'll love Firebase.");
-
         final ArrayList fbItems = new ArrayList();
 
-        mFrBaseRef.addValueEventListener(new ValueEventListener() {
+        final ListAdapter itemsAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, fbItems);
 
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                fbItems.add(snapshot.getValue());
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                //String message = "Server error. Refresh page";
-            }
-        });
+        mFrBaseRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        fbItems.add(snapshot.getValue());
 
-        fbItems.add("This is a TEST.");
+                        ListView listView = (ListView) findViewById(R.id.fbList);
+                        listView.setAdapter(itemsAdapter);
 
-        ArrayAdapter itemsAdapter =
-                new ArrayAdapter (this, android.R.layout.simple_list_item_1, fbItems);
+                        Log.d("DATA", snapshot.getValue().toString());
+                    }
 
-        //setContentView(R.layout.activity_main);
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                        //String message = "Server error. Refresh page";
+                    }
 
-        ListView listView = (ListView) findViewById(R.id.firebaseView);
-        listView.setAdapter(itemsAdapter);
+                });
+
+        //mFrBaseRef.child("Note3").setValue("Do you have data? You'll love Firebase.");
+
     }
-
 
 }
