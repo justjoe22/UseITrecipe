@@ -13,6 +13,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Main extends AppCompatActivity   {
 
@@ -39,7 +40,12 @@ public class Main extends AppCompatActivity   {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-                        fbItems.add(snapshot.getValue());
+
+                        //final Long childCount = snapshot.getChildrenCount();
+
+                        for (Iterator i = snapshot.getChildren().iterator(); i.hasNext(); ) {
+                            fbItems.add(i.toString());
+                        }
 
                         Log.d("DATA", snapshot.getValue().toString());
                     }
