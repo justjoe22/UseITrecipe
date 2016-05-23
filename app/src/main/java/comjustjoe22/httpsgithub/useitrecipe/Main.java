@@ -1,5 +1,6 @@
 package comjustjoe22.httpsgithub.useitrecipe;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 
 public class Main extends AppCompatActivity  {
 
+    private SwipeRefreshLayout swipeContainer;
     private static final String frBASE_URL = "https://useitrecipe.firebaseio.com/";
 
     @Override
@@ -26,7 +28,7 @@ public class Main extends AppCompatActivity  {
         //Place Firebase code here
         Firebase.setAndroidContext(this);
 
-        Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
+        final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
 
         final ArrayList fbItems = new ArrayList();
 
@@ -69,6 +71,48 @@ public class Main extends AppCompatActivity  {
         listView.setSmoothScrollbarEnabled(true);
         listView.setOverScrollMode(0);
 
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.master_lin);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                fbItems.clear();
+
+                mFrBaseRef.addValueEventListener(
+                        new ValueEventListener() {
+                            private int i = 0;
+
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                Iterator<DataSnapshot> iterator = snapshot.getChildren().iterator();
+                                int length = (int) snapshot.getChildrenCount();
+                                String[] dataString = new String[length];
+                                while(i < length) {
+                                    dataString[i] = iterator.next().getValue().toString();
+
+                                    fbItems.add(dataString[i]);
+
+                                    Log.d(Integer.toString(i), dataString[i]);
+                                    i++;
+                                }
+
+                                listView.invalidateViews();
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+                                //String message = "Server error. Refresh page";
+                            }
+
+                        });
+
+                swipeContainer.setRefreshing(false);
+
+            }
+        });
+
+
     }
 
 }
+//End of File
