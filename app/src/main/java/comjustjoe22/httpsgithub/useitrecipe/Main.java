@@ -11,9 +11,6 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.ValueEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.core.view.DataEvent;
-
-import java.io.DataOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,7 +33,7 @@ public class Main extends AppCompatActivity   {
 
         final ListView listView = (ListView) findViewById(R.id.fbList);
 
-        mFrBaseRef.addListenerForSingleValueEvent(
+        mFrBaseRef.addValueEventListener(
                 new ValueEventListener() {
                     private int i = 0;
 
@@ -53,6 +50,8 @@ public class Main extends AppCompatActivity   {
                             Log.d(Integer.toString(i), dataString[i]);
                             i++;
                         }
+
+                        listView.invalidateViews();
                     }
 
                     @Override
@@ -67,8 +66,6 @@ public class Main extends AppCompatActivity   {
             listView.setAdapter(new ArrayAdapter(Main.this,android.R.layout.simple_list_item_1,fbItems));
             listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
-
-        //mFrBaseRef.child("Note3").setValue("Do you have data? You'll love Firebase.");
 
     }
 
