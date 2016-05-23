@@ -11,7 +11,9 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.ValueEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.core.view.DataEvent;
 
+import java.io.DataOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -34,20 +36,23 @@ public class Main extends AppCompatActivity   {
 
         final ListView listView = (ListView) findViewById(R.id.fbList);
 
-        //final ListAdapter itemsAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, fbItems);
-
         mFrBaseRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
+                    private int i = 0;
+
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
+                        Iterator<DataSnapshot> iterator = snapshot.getChildren().iterator();
+                        int length = (int) snapshot.getChildrenCount();
+                        String[] dataString = new String[length];
+                        while(i < length) {
+                            dataString[i] = iterator.next().getValue().toString();
 
-                        //final Long childCount = snapshot.getChildrenCount();
+                            fbItems.add(dataString[i]);
 
-                        for (Iterator i = snapshot.getChildren().iterator(); i.hasNext(); ) {
-                            fbItems.add(i.toString());
+                            Log.d(Integer.toString(i), dataString[i]);
+                            i++;
                         }
-
-                        Log.d("DATA", snapshot.getValue().toString());
                     }
 
                     @Override
