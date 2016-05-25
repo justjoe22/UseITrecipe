@@ -11,6 +11,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.ValueEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,7 +29,7 @@ public class Main extends AppCompatActivity  {
         //Place Firebase code here
         Firebase.setAndroidContext(this);
 
-        final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("message");
+        final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("recipes");
 
         final ArrayList fbItems = new ArrayList();
 
@@ -42,13 +43,18 @@ public class Main extends AppCompatActivity  {
                     public void onDataChange(DataSnapshot snapshot) {
                         Iterator<DataSnapshot> iterator = snapshot.getChildren().iterator();
                         int length = (int) snapshot.getChildrenCount();
-                        String[] dataString = new String[length];
                         while(i < length) {
-                            dataString[i] = iterator.next().getValue().toString();
 
-                            fbItems.add(dataString[i]);
+                            String myKey = iterator.next().getKey();
 
-                            Log.d(Integer.toString(i), dataString[i]);
+                            String title = snapshot.child(myKey).child("title").getValue().toString();
+                            String cookingTime = snapshot.child(myKey).child("cookingTime").getValue().toString();
+                            String serves = snapshot.child(myKey).child("serves").getValue().toString();
+                            String rank = snapshot.child(myKey).child("rank").getValue().toString();
+
+                            fbItems.add(title + " / " + cookingTime + " / " + serves + " / " + rank);
+
+                            Log.d(Integer.toString(i), title);
                             i++;
                         }
 
@@ -86,13 +92,18 @@ public class Main extends AppCompatActivity  {
                             public void onDataChange(DataSnapshot snapshot) {
                                 Iterator<DataSnapshot> iterator = snapshot.getChildren().iterator();
                                 int length = (int) snapshot.getChildrenCount();
-                                String[] dataString = new String[length];
                                 while(i < length) {
-                                    dataString[i] = iterator.next().getValue().toString();
 
-                                    fbItems.add(dataString[i]);
+                                    String myKey = iterator.next().getKey();
 
-                                    Log.d(Integer.toString(i), dataString[i]);
+                                    String title = snapshot.child(myKey).child("title").getValue().toString();
+                                    String cookingTime = snapshot.child(myKey).child("cookingTime").getValue().toString();
+                                    String serves = snapshot.child(myKey).child("serves").getValue().toString();
+                                    String rank = snapshot.child(myKey).child("rank").getValue().toString();
+
+                                    fbItems.add(title + " / " + cookingTime + " / " + serves + " / " + rank);
+
+                                    Log.d(Integer.toString(i), title);
                                     i++;
                                 }
 
