@@ -1,11 +1,15 @@
 package comjustjoe22.httpsgithub.useitrecipe;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.ValueEventListener;
@@ -72,6 +76,26 @@ public class Main extends AppCompatActivity  {
         {
             listView.setAdapter(new ArrayAdapter(Main.this,android.R.layout.simple_list_item_1,fbItems));
             listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+            //OnClick for ListView
+            listView.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String item = listView.getItemAtPosition(position).toString();
+                            Toast.makeText(Main.this,"You selected : " + item, Toast.LENGTH_SHORT).show();
+
+                            try {
+                                Intent intent = new Intent(Main.this,Class.forName("comjustjoe22.httpsgithub.useitrecipe.details"));
+
+                                startActivity(intent);
+
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
         }
 
         listView.setSmoothScrollbarEnabled(true);
