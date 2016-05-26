@@ -52,7 +52,7 @@ public class Main extends AppCompatActivity  {
                             String serves = snapshot.child(myKey).child("serves").getValue().toString();
                             String rank = snapshot.child(myKey).child("rank").getValue().toString();
 
-                            fbItems.add(title + " / " + cookingTime + " / " + serves + " / " + rank);
+                            fbItems.add(title + "\n" + cookingTime + " / " + serves + " / " + rank);
 
                             Log.d(Integer.toString(i), title);
                             i++;
