@@ -112,6 +112,7 @@ public class Main extends AppCompatActivity  {
             public void onRefresh() {
 
                 fbItems.clear();
+                fbIDs.clear();
 
                 mFrBaseRef.addValueEventListener(
                         new ValueEventListener() {
@@ -130,7 +131,8 @@ public class Main extends AppCompatActivity  {
                                     String serves = snapshot.child(myKey).child("serves").getValue().toString();
                                     String rank = snapshot.child(myKey).child("rank").getValue().toString();
 
-                                    fbItems.add(title + " / " + cookingTime + " / " + serves + " / " + rank);
+                                    fbItems.add(title + "\n" + cookingTime + " / " + serves + " / " + rank);
+                                    fbIDs.add(myKey);
 
                                     Log.d(Integer.toString(i), title);
                                     i++;
