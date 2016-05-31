@@ -36,6 +36,7 @@ public class Main extends AppCompatActivity  {
         final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("recipes");
 
         final ArrayList fbItems = new ArrayList();
+        final ArrayList fbIDs = new ArrayList();
 
         final ListView listView = (ListView) findViewById(R.id.fbList);
 
@@ -57,8 +58,9 @@ public class Main extends AppCompatActivity  {
                             String rank = snapshot.child(myKey).child("rank").getValue().toString();
 
                             fbItems.add(title + "\n" + cookingTime + " / " + serves + " / " + rank);
+                            fbIDs.add(myKey);
 
-                            Log.d(Integer.toString(i), title);
+                            Log.d(Integer.toString(i), myKey + ": " + title);
                             i++;
                         }
 
@@ -83,12 +85,13 @@ public class Main extends AppCompatActivity  {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String item = listView.getItemAtPosition(position).toString();
+                            String itemKey = fbIDs.get(position).toString();
                             Toast.makeText(Main.this,"You selected : " + item, Toast.LENGTH_SHORT).show();
 
                             try {
                                 Intent intent = new Intent(Main.this,Class.forName("comjustjoe22.httpsgithub.useitrecipe.details"));
 
-                                intent.putExtra("Item",item);
+                                intent.putExtra("Key",itemKey);
 
                                 startActivity(intent);
 
