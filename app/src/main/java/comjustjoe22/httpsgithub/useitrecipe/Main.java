@@ -88,6 +88,8 @@ public class Main extends AppCompatActivity  {
                             try {
                                 Intent intent = new Intent(Main.this,Class.forName("comjustjoe22.httpsgithub.useitrecipe.details"));
 
+                                intent.putExtra("Item",item);
+
                                 startActivity(intent);
 
                             } catch (ClassNotFoundException e) {
