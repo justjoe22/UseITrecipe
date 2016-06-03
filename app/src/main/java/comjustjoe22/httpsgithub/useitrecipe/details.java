@@ -3,12 +3,14 @@ package comjustjoe22.httpsgithub.useitrecipe;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.firebase.client.snapshot.ChildrenNode;
 
 public class details extends AppCompatActivity {
 
@@ -45,6 +47,9 @@ public class details extends AppCompatActivity {
 
                             TextView textView4 = (TextView) findViewById(R.id.textView4);
                             textView4.setText(dataSnapshot.child("instructions").getValue().toString());
+
+                            //ExpandableListView textView5 = (ExpandableListView) findViewByIdR(R.id.textView5);
+
                         }
 
                         @Override
