@@ -3,14 +3,16 @@ package comjustjoe22.httpsgithub.useitrecipe;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.firebase.client.snapshot.ChildrenNode;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class details extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class details extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Intent intent = getIntent();
+
         if (null != intent) {
 
             String myKey = intent.getStringExtra("Key");
@@ -30,6 +33,8 @@ public class details extends AppCompatActivity {
             Firebase.setAndroidContext(this);
 
             final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("recipes");
+
+            final SimpleExpandableListAdapter myDS;
 
             mFrBaseRef.child(myKey).addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -48,7 +53,30 @@ public class details extends AppCompatActivity {
                             TextView textView4 = (TextView) findViewById(R.id.textView4);
                             textView4.setText(dataSnapshot.child("instructions").getValue().toString());
 
-                            //ExpandableListView textView5 = (ExpandableListView) findViewByIdR(R.id.textView5);
+                            ArrayList groupList = new ArrayList<> ();
+                            HashMap listDataChild = new HashMap<>();
+
+                            groupList.add("Name");
+                            groupList.add("Amount");
+                            groupList.add("Measure");
+
+                            // Adding child data
+                            List<String> top250 = new ArrayList<>();
+                            top250.add("The Shawshank Redemption");
+                            top250.add("The Godfather");
+                            top250.add("The Godfather: Part II");
+                            top250.add("Pulp Fiction");
+                            top250.add("The Good, the Bad and the Ugly");
+                            top250.add("The Dark Knight");
+                            top250.add("12 Angry Men");
+
+                            listDataChild.put(groupList.get(0), top250);
+
+                            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+
+                            myDS = new SimpleExpandableListAdapter(this, groupList, listDataChild);
+
+                            expandableListView.setAdapter(myDS);
 
                         }
 
