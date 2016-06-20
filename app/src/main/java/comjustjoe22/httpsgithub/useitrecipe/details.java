@@ -34,7 +34,7 @@ public class details extends AppCompatActivity {
 
             final Firebase mFrBaseRef = new Firebase(frBASE_URL).child("recipes");
 
-            final SimpleExpandableListAdapter myDS;
+            //final SimpleExpandableListAdapter myDS;
 
             mFrBaseRef.child(myKey).addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -72,11 +72,11 @@ public class details extends AppCompatActivity {
 
                             listDataChild.put(groupList.get(0), top250);
 
-                            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+                            //ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
-                            myDS = new SimpleExpandableListAdapter(this, groupList, listDataChild);
+                            //myDS = new SimpleExpandableListAdapter(this, groupList, listDataChild);
 
-                            expandableListView.setAdapter(myDS);
+                            //expandableListView.setAdapter(myDS);
 
                         }
 
